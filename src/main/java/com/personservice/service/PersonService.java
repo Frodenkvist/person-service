@@ -3,6 +3,7 @@ package com.personservice.service;
 import com.personservice.common.exception.PersonMissingException;
 import com.personservice.common.model.Person;
 import com.personservice.repository.PersonRepository;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,9 @@ import java.util.List;
 public class PersonService {
     @Autowired
     private PersonRepository personRepository;
+
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
 
     public Person getPerson(String personNumber) throws PersonMissingException {
         return personRepository.findPersonByPersonnummer(personNumber).orElseThrow(() ->
@@ -23,7 +27,11 @@ public class PersonService {
     }
 
     public Person createPerson(Person person) {
-        return personRepository.save(person);
+        Person createdPerson =  personRepository.save(person);
+
+        rabbitTemplate.convertAndSend("PERSON", "CREATE", person);
+
+        return createdPerson;
     }
     public void deletePerson(String personnummer) throws PersonMissingException {
         Long rowsDeleted = personRepository.deletePersonByPersonnummer(personnummer);
