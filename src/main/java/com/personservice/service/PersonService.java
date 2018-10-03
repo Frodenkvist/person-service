@@ -21,4 +21,14 @@ public class PersonService {
     public List<Person> getPersons() {
         return personRepository.findAll();
     }
+
+    public Person createPerson(Person person) {
+        return personRepository.save(person);
+    }
+    public void deletePerson(String personnummer) throws PersonMissingException {
+        Long rowsDeleted = personRepository.deletePersonByPersonnummer(personnummer);
+        if (rowsDeleted == 0) {
+            throw new PersonMissingException("Unable to find person to delete with person number: " + personnummer, personnummer);
+        }
+    }
 }
