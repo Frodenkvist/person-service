@@ -1,17 +1,13 @@
-package com.fruktkorg.common.model;
-
-import java.util.List;
+package com.personservice.common.model;
 
 public class Person {
 
     private String personNummer;
     private String name;
-    private List<Permission> permissions;
 
-    public Person(String personNummer, String name, List<Permission> permissions) {
+    public Person(String personNummer, String name) {
         this.personNummer = personNummer;
         this.name = name;
-        this.permissions = permissions;
     }
 
     public String getPersonNummer() {
@@ -28,17 +24,5 @@ public class Person {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public List<Permission> getPermissions() {
-        return permissions;
-    }
-
-    public void setPermissions(List<Permission> permissions) {
-        this.permissions = permissions;
-    }
-
-    public boolean hasPermission(Permission neededPermission) {
-        return permissions.contains(neededPermission);
     }
 }
