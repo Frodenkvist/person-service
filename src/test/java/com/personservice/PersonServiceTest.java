@@ -6,6 +6,7 @@ import com.personservice.repository.PersonRepository;
 import com.personservice.service.PersonService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -37,6 +38,9 @@ public class PersonServiceTest {
 
     @MockBean
     private PersonRepository personRepository;
+
+    @MockBean
+    private RabbitTemplate rabbitTemplate;
 
     @Test
     public void getPerson() throws PersonMissingException {
