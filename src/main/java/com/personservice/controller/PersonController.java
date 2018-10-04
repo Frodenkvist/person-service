@@ -1,8 +1,8 @@
 package com.personservice.controller;
 
+import com.common.util.JS;
 import com.personservice.common.exception.PersonMissingException;
 import com.personservice.common.model.Person;
-import com.personservice.controller.util.JS;
 import com.personservice.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.nio.file.Path;
 
 @RestController
 @RequestMapping("/v1/person")

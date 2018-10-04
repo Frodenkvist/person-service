@@ -1,5 +1,6 @@
 package com.personservice.service;
 
+import com.common.rabbitmq.RabbitMQRouting;
 import com.personservice.common.exception.PersonMissingException;
 import com.personservice.common.model.Person;
 import com.personservice.repository.PersonRepository;
@@ -29,7 +30,7 @@ public class PersonService {
     public Person createPerson(Person person) {
         Person createdPerson =  personRepository.save(person);
 
-        rabbitTemplate.convertAndSend("PERSON", "CREATE", person);
+        rabbitTemplate.convertAndSend(RabbitMQRouting.Exchange.PERSON.name(), RabbitMQRouting.Person.CREATE.name(), person);
 
         return createdPerson;
     }
