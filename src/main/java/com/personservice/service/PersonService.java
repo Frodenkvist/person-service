@@ -39,5 +39,7 @@ public class PersonService {
         if (rowsDeleted == 0) {
             throw new PersonMissingException("Unable to find person to delete with person number: " + personnummer, personnummer);
         }
+
+        rabbitTemplate.convertAndSend(RabbitMQRouting.Exchange.PERSON.name(), RabbitMQRouting.Person.DELETE.name(), personnummer);
     }
 }
